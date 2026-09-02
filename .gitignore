@@ -1,0 +1,6 @@
+# Build output (from node build.mjs)
+/app.js
+/vendor/
+
+.DS_Store
+*.log
