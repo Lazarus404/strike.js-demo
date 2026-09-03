@@ -1,10 +1,11 @@
-import { useState, useContext } from '../../vendor/strike.core+hooks.js';
-import { Btn, Stack, Text, Check, Dialog } from '../../vendor/strike-ui.js';
-import { CartCtx } from '../cart/context.jsx';
+import { useState } from '../../vendor/strike.core+hooks.js';
+import { Btn, Stack, Text, Check } from '../../vendor/strike-ui.js';
+import { snackbar } from 'strike-fw-ui';
+import { addToCart } from '../cart/store.js';
 import { PRODUCTS, money, go } from '../data/products.js';
+import { TxDialog } from '../lib/motion.jsx';
 
 export function ProductPage({ id }) {
-	const cart = useContext(CartCtx);
 	const [giftWrap, setGiftWrap] = useState(false);
 	const [careOpen, setCareOpen] = useState(false);
 	const product = PRODUCTS.find(p => p.id === id);
@@ -46,7 +47,13 @@ export function ProductPage({ id }) {
 				<Stack row gap={8}>
 					<Btn
 						onClick={() => {
-							cart.add(product, { giftWrap });
+							addToCart(product, { giftWrap });
+							snackbar.show({
+								tone: 'ok',
+								children: 'Added ' + product.name,
+								autoHideMs: 2800,
+								placement: 'bottom-end'
+							});
 							go('#/cart');
 						}}
 					>
@@ -60,7 +67,7 @@ export function ProductPage({ id }) {
 					</Btn>
 				</Stack>
 			</Stack>
-			<Dialog
+			<TxDialog
 				open={careOpen}
 				title="Care guide"
 				onClose={() => setCareOpen(false)}
@@ -71,7 +78,7 @@ export function ProductPage({ id }) {
 						Close
 					</Btn>
 				</Stack>
-			</Dialog>
+			</TxDialog>
 		</div>
 	);
 }

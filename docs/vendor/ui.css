@@ -1,0 +1,332 @@
+/* Optional one-file CSS drop-in. Prefer per-control css`` inject + tokens.css. */
+
+:root {
+	--strike-ink: #1a1a1a;
+	--strike-muted: #5c5c5c;
+	--strike-line: #d4d4d4;
+	--strike-fill: #f6f6f4;
+	--strike-accent: #0b6e4f;
+	--strike-danger: #9b2226;
+	--strike-radius: 6px;
+	--strike-gap: 0.75rem;
+	--strike-space: 0.75rem;
+}
+
+.strike-btn {
+	font: inherit;
+	cursor: pointer;
+	border: 1px solid var(--strike-line, #ccc);
+	background: #fff;
+	color: inherit;
+	border-radius: var(--strike-radius, 6px);
+	padding: 0.4rem 0.85rem;
+}
+.strike-btn:hover { border-color: var(--strike-muted, #666); }
+.strike-btn:focus-visible { outline: 2px solid var(--strike-accent, #0b6e4f); outline-offset: 2px; }
+.strike-btn:active { transform: translateY(1px); }
+.strike-btn--primary {
+	background: var(--strike-accent, #0b6e4f);
+	border-color: transparent;
+	color: #fff;
+}
+.strike-btn--ghost { background: transparent; }
+.strike-btn--default { background: #fff; }
+.strike-btn[data-state="busy"] { opacity: 0.6; pointer-events: none; }
+
+.strike-field { display: flex; flex-direction: column; gap: 0.35rem; font: inherit; }
+.strike-field__label { font-size: 0.85rem; color: var(--strike-muted, #5c5c5c); }
+.strike-field__input {
+	font: inherit;
+	padding: 0.45rem 0.65rem;
+	border: 1px solid var(--strike-line, #ccc);
+	border-radius: var(--strike-radius, 6px);
+	background: #fff;
+}
+.strike-field__input:focus-visible {
+	outline: 2px solid var(--strike-accent, #0b6e4f);
+	outline-offset: 1px;
+}
+.strike-field[data-state="invalid"] .strike-field__input {
+	border-color: var(--strike-danger, #9b2226);
+}
+
+.strike-stack { display: flex; flex-direction: column; }
+.strike-stack--row { flex-direction: row; align-items: center; }
+
+.strike-text { margin: 0; font: inherit; color: inherit; }
+.strike-text--muted { color: var(--strike-muted, #5c5c5c); }
+.strike-text--danger { color: var(--strike-danger, #9b2226); }
+.strike-text--title { font-size: 1.25rem; font-weight: 600; }
+
+.strike-check {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	font: inherit;
+	cursor: pointer;
+}
+.strike-check__input {
+	width: 1rem;
+	height: 1rem;
+	accent-color: var(--strike-accent, #0b6e4f);
+}
+.strike-check[data-state="busy"] { opacity: 0.6; pointer-events: none; }
+
+.strike-select { display: flex; flex-direction: column; gap: 0.35rem; font: inherit; }
+.strike-select__label { font-size: 0.85rem; color: var(--strike-muted, #5c5c5c); }
+.strike-select__control {
+	font: inherit;
+	padding: 0.45rem 0.65rem;
+	border: 1px solid var(--strike-line, #ccc);
+	border-radius: var(--strike-radius, 6px);
+	background: #fff;
+}
+.strike-select__control:focus-visible {
+	outline: 2px solid var(--strike-accent, #0b6e4f);
+	outline-offset: 1px;
+}
+.strike-select[data-state="invalid"] .strike-select__control {
+	border-color: var(--strike-danger, #9b2226);
+}
+
+.strike-image {
+	display: block;
+	max-width: 100%;
+	height: auto;
+}
+.strike-image--round { border-radius: var(--strike-radius, 6px); }
+.strike-image--circle { border-radius: 50%; }
+
+.strike-form {
+	display: flex;
+	flex-direction: column;
+	gap: var(--strike-gap, 0.75rem);
+	font: inherit;
+}
+.strike-form[data-state="busy"] { opacity: 0.7; pointer-events: none; }
+
+.strike-switch {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	font: inherit;
+	cursor: pointer;
+	position: relative;
+}
+.strike-switch__track {
+	position: relative;
+	width: 2.25rem;
+	height: 1.25rem;
+	border-radius: 999px;
+	background: var(--strike-line, #ccc);
+	flex-shrink: 0;
+}
+.strike-switch__track::after {
+	content: "";
+	position: absolute;
+	top: 0.15rem;
+	left: 0.15rem;
+	width: 0.95rem;
+	height: 0.95rem;
+	border-radius: 50%;
+	background: #fff;
+	box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+.strike-switch__input {
+	position: absolute;
+	opacity: 0;
+	width: 0;
+	height: 0;
+}
+.strike-switch__input:checked + .strike-switch__track {
+	background: var(--strike-accent, #0b6e4f);
+}
+.strike-switch__input:checked + .strike-switch__track::after {
+	transform: translateX(1rem);
+}
+
+.strike-dialog-root {
+	position: fixed;
+	inset: 0;
+	z-index: 40;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 1rem;
+	background: rgba(0, 0, 0, 0.4);
+}
+.strike-dialog {
+	max-width: 24rem;
+	width: 100%;
+	background: #fff;
+	border-radius: var(--strike-radius, 6px);
+	border: 1px solid var(--strike-line, #ccc);
+	padding: 1rem 1.1rem;
+}
+.strike-dialog__title {
+	margin: 0 0 0.5rem;
+	font-size: 1.1rem;
+	font-weight: 600;
+}
+
+.strike-radio-group {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	font: inherit;
+}
+.strike-radio-group__label {
+	font-size: 0.85rem;
+	color: var(--strike-muted, #5c5c5c);
+}
+.strike-radio-group__options {
+	display: flex;
+	flex-direction: column;
+	gap: 0.4rem;
+}
+.strike-radio-group__options--row {
+	flex-direction: row;
+	flex-wrap: wrap;
+	gap: 0.75rem;
+}
+.strike-radio {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	font: inherit;
+	cursor: pointer;
+}
+.strike-radio__input {
+	width: 1rem;
+	height: 1rem;
+	accent-color: var(--strike-accent, #0b6e4f);
+}
+
+.strike-number {
+	display: flex;
+	flex-direction: column;
+	gap: 0.35rem;
+	font: inherit;
+}
+.strike-number__label {
+	font-size: 0.85rem;
+	color: var(--strike-muted, #5c5c5c);
+}
+.strike-number__row {
+	display: inline-flex;
+	align-items: stretch;
+}
+.strike-number__input {
+	font: inherit;
+	padding: 0.45rem 0.65rem;
+	border: 1px solid var(--strike-line, #ccc);
+	border-radius: 0;
+	background: #fff;
+	width: 4.5rem;
+	text-align: center;
+}
+.strike-number__input:focus-visible {
+	outline: 2px solid var(--strike-accent, #0b6e4f);
+	outline-offset: 1px;
+	z-index: 1;
+}
+.strike-number[data-state="invalid"] .strike-number__input {
+	border-color: var(--strike-danger, #9b2226);
+}
+
+.strike-btn-group {
+	display: inline-flex;
+	flex-direction: row;
+	align-items: stretch;
+	font: inherit;
+}
+.strike-btn-group > .strike-btn {
+	border-radius: 0;
+	margin-left: -1px;
+}
+.strike-btn-group > .strike-btn:first-child {
+	margin-left: 0;
+	border-radius: var(--strike-radius, 6px) 0 0 var(--strike-radius, 6px);
+}
+.strike-btn-group > .strike-btn:last-child {
+	border-radius: 0 var(--strike-radius, 6px) var(--strike-radius, 6px) 0;
+}
+.strike-btn-group > .strike-btn:only-child {
+	border-radius: var(--strike-radius, 6px);
+	margin-left: 0;
+}
+
+.strike-toggle-group {
+	display: inline-flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	gap: 0.35rem;
+	font: inherit;
+}
+.strike-toggle-group--joined {
+	gap: 0;
+}
+.strike-toggle-group--joined > .strike-btn {
+	border-radius: 0;
+	margin-left: -1px;
+}
+.strike-toggle-group--joined > .strike-btn:first-child {
+	margin-left: 0;
+	border-radius: var(--strike-radius, 6px) 0 0 var(--strike-radius, 6px);
+}
+.strike-toggle-group--joined > .strike-btn:last-child {
+	border-radius: 0 var(--strike-radius, 6px) var(--strike-radius, 6px) 0;
+}
+.strike-toggle-group--joined > .strike-btn:only-child {
+	border-radius: var(--strike-radius, 6px);
+	margin-left: 0;
+}
+
+.strike-autocomplete {
+	display: flex;
+	flex-direction: column;
+	gap: 0.35rem;
+	font: inherit;
+	position: relative;
+}
+.strike-autocomplete__label {
+	font-size: 0.85rem;
+	color: var(--strike-muted, #5c5c5c);
+}
+.strike-autocomplete__input {
+	font: inherit;
+	padding: 0.45rem 0.65rem;
+	border: 1px solid var(--strike-line, #ccc);
+	border-radius: var(--strike-radius, 6px);
+	background: #fff;
+	width: 100%;
+	box-sizing: border-box;
+}
+.strike-autocomplete__input:focus-visible {
+	outline: 2px solid var(--strike-accent, #0b6e4f);
+	outline-offset: 1px;
+}
+.strike-autocomplete__list {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 100%;
+	z-index: 20;
+	margin: 0.2rem 0 0;
+	padding: 0.25rem 0;
+	list-style: none;
+	background: #fff;
+	border: 1px solid var(--strike-line, #ccc);
+	border-radius: var(--strike-radius, 6px);
+	box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+	max-height: 12rem;
+	overflow: auto;
+}
+.strike-autocomplete__option {
+	padding: 0.4rem 0.65rem;
+	cursor: pointer;
+}
+.strike-autocomplete[data-state="invalid"] .strike-autocomplete__input {
+	border-color: var(--strike-danger, #9b2226);
+}
+

@@ -1,0 +1,29 @@
+#!/bin/sh
+# Refresh docs/ for GitHub Pages; auto-commit when the snapshot changes.
+# Install: git config core.hooksPath .githooks
+
+set -e
+root="$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)"
+cd "$root"
+
+if [ "${SKIP_DOCS_PUBLISH:-}" = "1" ]; then
+	echo "pre-push: SKIP_DOCS_PUBLISH=1, skipping docs publish"
+	exit 0
+fi
+
+echo "pre-push: publishing docs/..."
+node publish-docs.mjs
+
+if git status --porcelain -- docs | grep -q .; then
+	git add docs
+	git commit -m "chore: refresh GitHub Pages build"
+	remote="${1:-origin}"
+	echo "pre-push: docs changed; pushing HEAD (with new commit) to ${remote}..."
+	# Original push would omit this commit; push HEAD here, then abort the original.
+	git push --no-verify "$remote" HEAD
+	echo "pre-push: remote updated. (exit 1 only aborts the duplicate original push)"
+	exit 1
+fi
+
+echo "pre-push: docs/ unchanged"
+exit 0

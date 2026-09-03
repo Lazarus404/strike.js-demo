@@ -1,6 +1,12 @@
 # Build output (from node build.mjs)
 /app.js
 /vendor/
+/strike.js-component-ui
+/strike.js-datagrid
+/strike.js-router
+/strike.js-store
+/tmp-smoke/
+/tmp-smoke-*/
 
 .DS_Store
 *.log

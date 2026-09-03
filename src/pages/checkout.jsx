@@ -1,4 +1,4 @@
-import { useState, useContext } from '../../vendor/strike.core+hooks.js';
+import { useState } from '../../vendor/strike.core+hooks.js';
 import {
 	Btn,
 	Stack,
@@ -8,11 +8,16 @@ import {
 	Form,
 	Switch
 } from '../../vendor/strike-ui.js';
-import { CartCtx } from '../cart/context.jsx';
+import {
+	useCartLines,
+	useCartTotal,
+	clearCart
+} from '../cart/store.js';
 import { money, go } from '../data/products.js';
 
 export function CheckoutPage() {
-	const cart = useContext(CartCtx);
+	const lines = useCartLines();
+	const cartTotal = useCartTotal();
 	const [name, setName] = useState('');
 	const [email, setEmail] = useState('');
 	const [ship, setShip] = useState('standard');
@@ -21,7 +26,7 @@ export function CheckoutPage() {
 	const [note, setNote] = useState('');
 	const [err, setErr] = useState('');
 
-	if (!cart.lines.length) {
+	if (!lines.length) {
 		return (
 			<Stack gap={12}>
 				<Text as="h1" tone="title">
@@ -35,14 +40,14 @@ export function CheckoutPage() {
 		);
 	}
 
-	const total = cart.total + (ship === 'express' ? 12 : 0);
+	const total = cartTotal + (ship === 'express' ? 12 : 0);
 
 	function submit() {
 		if (!name.trim() || !email.trim()) {
 			setErr('Name and email are required.');
 			return;
 		}
-		cart.clear();
+		clearCart();
 		go('#/thanks');
 	}
 

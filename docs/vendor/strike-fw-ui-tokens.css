@@ -1,0 +1,11 @@
+:root {
+	--strike-ok: #2d6a4f;
+	--strike-warn: #b08900;
+	--strike-info: #1d4e89;
+	--strike-elev-1: 0 1px 2px rgba(0, 0, 0, 0.08);
+	--strike-elev-2: 0 4px 16px rgba(0, 0, 0, 0.12);
+	--strike-z-tooltip: 50;
+	--strike-z-drawer: 45;
+	--strike-z-snackbar: 55;
+	--strike-appbar-height: 3rem;
+}

@@ -1,0 +1,11 @@
+:root {
+	--strike-ink: #1a1a1a;
+	--strike-muted: #5c5c5c;
+	--strike-line: #d4d4d4;
+	--strike-fill: #f6f6f4;
+	--strike-accent: #0b6e4f;
+	--strike-danger: #9b2226;
+	--strike-radius: 6px;
+	--strike-gap: 0.75rem;
+	--strike-space: 0.75rem;
+}

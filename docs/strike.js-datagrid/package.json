@@ -1,0 +1,50 @@
+{
+  "name": "strike-fw-datagrid",
+  "version": "0.1.0",
+  "description": "DataGrid for Strike; peers on strike-fw and strike-fw-ui",
+  "type": "module",
+  "license": "MIT",
+  "author": "Jahred Love",
+  "engines": {
+    "node": ">=18"
+  },
+  "sideEffects": [
+    "./data-grid.js"
+  ],
+  "main": "./index.js",
+  "types": "./types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./types/index.d.ts",
+      "import": "./index.js",
+      "default": "./index.js"
+    },
+    "./package.json": "./package.json",
+    "./*": {
+      "types": "./types/*.d.ts",
+      "import": "./*",
+      "default": "./*"
+    }
+  },
+  "files": [
+    "index.js",
+    "data-grid.js",
+    "lib",
+    "types",
+    "LICENSE",
+    "README.md",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "test": "node --test test/*.js"
+  },
+  "peerDependencies": {
+    "strike-fw": ">=0.2.1",
+    "strike-fw-ui": ">=0.2.0"
+  },
+  "devDependencies": {
+    "linkedom": "^0.18.0",
+    "strike-fw": "^0.2.1",
+    "strike-fw-ui": "^0.2.0"
+  }
+}

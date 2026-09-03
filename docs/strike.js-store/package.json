@@ -1,0 +1,49 @@
+{
+  "name": "strike-fw-store",
+  "version": "0.1.0",
+  "description": "Platform-agnostic atoms and request groups for Strike",
+  "type": "module",
+  "license": "MIT",
+  "author": "Jahred Love",
+  "engines": {
+    "node": ">=18"
+  },
+  "main": "./index.js",
+  "types": "./types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./types/index.d.ts",
+      "import": "./index.js",
+      "default": "./index.js"
+    },
+    "./query": {
+      "types": "./types/query.d.ts",
+      "import": "./lib/query-entry.js",
+      "default": "./lib/query-entry.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "index.js",
+    "lib",
+    "types",
+    "LICENSE",
+    "README.md",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "test": "node test/run.mjs"
+  },
+  "peerDependencies": {
+    "strike-fw": "0.2.1"
+  },
+  "peerDependenciesMeta": {
+    "strike-fw": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "linkedom": "^0.18.0",
+    "strike-fw": "0.2.1"
+  }
+}

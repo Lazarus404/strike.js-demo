@@ -1,0 +1,20 @@
+export declare function Box(props: {
+	as?: string;
+	p?: number | string;
+	px?: number | string;
+	py?: number | string;
+	m?: number | string;
+	mx?: number | string;
+	my?: number | string;
+	gap?: number | string;
+	display?: 'block' | 'flex' | 'grid' | 'inline-flex' | 'none';
+	direction?: string;
+	align?: string;
+	justify?: string;
+	width?: number | string;
+	height?: number | string;
+	class?: string;
+	style?: Record<string, unknown>;
+	children?: unknown;
+	[key: string]: unknown;
+}): unknown;

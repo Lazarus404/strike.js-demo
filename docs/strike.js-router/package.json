@@ -1,0 +1,48 @@
+{
+  "name": "strike-fw-router",
+  "version": "0.1.0",
+  "description": "Client router for Strike: adapters, nested routes, NavLink, URL bindings",
+  "type": "module",
+  "license": "MIT",
+  "author": "Jahred Love",
+  "engines": {
+    "node": ">=18"
+  },
+  "sideEffects": [
+    "./lib/components.js",
+    "./lib/context.js"
+  ],
+  "main": "./index.js",
+  "types": "./types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./types/index.d.ts",
+      "import": "./index.js",
+      "default": "./index.js"
+    },
+    "./package.json": "./package.json",
+    "./*": {
+      "types": "./types/*.d.ts",
+      "import": "./*",
+      "default": "./*"
+    }
+  },
+  "files": [
+    "index.js",
+    "lib",
+    "types",
+    "LICENSE",
+    "README.md",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "test": "node --test test/*.js"
+  },
+  "peerDependencies": {
+    "strike-fw": ">=0.2.1"
+  },
+  "devDependencies": {
+    "linkedom": "^0.18.0",
+    "strike-fw": "^0.2.1"
+  }
+}

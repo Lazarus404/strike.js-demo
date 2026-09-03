@@ -1,18 +1,43 @@
 import { mount } from '../../vendor/strike.core+hooks.js';
-import { CartCtx, useCart } from '../cart/context.jsx';
-import { useRoute } from './router.jsx';
+import {
+	Router,
+	Routes,
+	Route,
+	useParams
+} from 'strike-fw-router';
 import { Shell } from './shell.jsx';
-import { Page } from './page.jsx';
+import { ShopHome } from '../pages/shop.jsx';
+import { ProductPage } from '../pages/product.jsx';
+import { CartPage } from '../pages/cart.jsx';
+import { CheckoutPage } from '../pages/checkout.jsx';
+import { ThanksPage } from '../pages/thanks.jsx';
+import { LabPage } from '../lab/page.jsx';
+
+function ProductRoute() {
+	const { id } = useParams();
+	return <ProductPage id={id} />;
+}
+
+function AppRoutes() {
+	return (
+		<Routes>
+			<Route path="/" element={<ShopHome />} />
+			<Route path="/product/:id" element={<ProductRoute />} />
+			<Route path="/cart" element={<CartPage />} />
+			<Route path="/checkout" element={<CheckoutPage />} />
+			<Route path="/thanks" element={<ThanksPage />} />
+			<Route path="/lab/:section?" element={<LabPage />} />
+		</Routes>
+	);
+}
 
 function App() {
-	const path = useRoute();
-	const cart = useCart();
 	return (
-		<CartCtx.Provider value={cart}>
-			<Shell path={path} cart={cart}>
-				<Page path={path} />
+		<Router>
+			<Shell>
+				<AppRoutes />
 			</Shell>
-		</CartCtx.Provider>
+		</Router>
 	);
 }
 
@@ -23,4 +48,3 @@ if (typeof document !== 'undefined' && document.getElementById('app')) {
 
 export { App };
 export { PRODUCTS } from '../data/products.js';
-export { parseRoute } from './router.jsx';

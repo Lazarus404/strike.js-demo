@@ -1,0 +1,63 @@
+{
+  "name": "strike-fw-ui",
+  "version": "0.2.0",
+  "description": "Extended Strike UI controls peer on strike-fw",
+  "type": "module",
+  "license": "MIT",
+  "author": "Jahred Love",
+  "engines": {
+    "node": ">=18"
+  },
+  "sideEffects": [
+    "./layout/**/*.js",
+    "./surfaces/**/*.js",
+    "./navigation/**/*.js",
+    "./display/**/*.js",
+    "./feedback/**/*.js",
+    "./media/**/*.js",
+    "*.css",
+    "./tokens.css"
+  ],
+  "main": "./index.js",
+  "types": "./types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./types/index.d.ts",
+      "import": "./index.js",
+      "default": "./index.js"
+    },
+    "./tokens.css": "./tokens.css",
+    "./package.json": "./package.json",
+    "./*": {
+      "types": "./types/*.d.ts",
+      "import": "./*",
+      "default": "./*"
+    }
+  },
+  "files": [
+    "index.js",
+    "cls.js",
+    "lib",
+    "layout",
+    "surfaces",
+    "navigation",
+    "display",
+    "feedback",
+    "media",
+    "types",
+    "tokens.css",
+    "LICENSE",
+    "README.md",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "test": "node --test test/*.js"
+  },
+  "peerDependencies": {
+    "strike-fw": ">=0.2.1"
+  },
+  "devDependencies": {
+    "linkedom": "^0.18.0",
+    "strike-fw": "^0.2.1"
+  }
+}

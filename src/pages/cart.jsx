@@ -1,13 +1,22 @@
-import { useState, useContext } from '../../vendor/strike.core+hooks.js';
-import { Btn, Stack, Text, Select, Dialog } from '../../vendor/strike-ui.js';
-import { CartCtx } from '../cart/context.jsx';
+import { useState, useRef } from '../../vendor/strike.core+hooks.js';
+import { Btn, Stack, Text, Select } from '../../vendor/strike-ui.js';
+import { snackbar } from 'strike-fw-ui';
+import {
+	useCartLines,
+	useCartTotal,
+	setCartQty
+} from '../cart/store.js';
 import { money, go } from '../data/products.js';
+import { TxDialog, useListFlip } from '../lib/motion.jsx';
 
 export function CartPage() {
-	const cart = useContext(CartCtx);
+	const lines = useCartLines();
+	const total = useCartTotal();
 	const [pending, setPending] = useState(null);
+	const listRef = useRef(null);
+	useListFlip(listRef, [lines.map(l => l.id + ':' + l.qty + ':' + !!l.giftWrap).join('|')]);
 
-	if (!cart.lines.length) {
+	if (!lines.length) {
 		return (
 			<Stack gap={12}>
 				<Text as="h1" tone="title">
@@ -24,8 +33,8 @@ export function CartPage() {
 			<Text as="h1" tone="title">
 				Cart
 			</Text>
-			<ul class="cart-list">
-				{cart.lines.map(line => (
+			<ul class="cart-list" ref={listRef}>
+				{lines.map(line => (
 					<li key={line.id + (line.giftWrap ? '-gift' : '')}>
 						<Stack row gap={12} class="cart-row">
 							<div class="cart-info">
@@ -43,7 +52,7 @@ export function CartPage() {
 									label: String(n)
 								}))}
 								onChange={e =>
-									cart.setQty(
+									setCartQty(
 										line.id,
 										Number(e.target.value),
 										line.giftWrap
@@ -63,10 +72,10 @@ export function CartPage() {
 				))}
 			</ul>
 			<Stack row gap={12} class="cart-total">
-				<Text as="strong">Total {money(cart.total)}</Text>
+				<Text as="strong">Total {money(total)}</Text>
 				<Btn onClick={() => go('#/checkout')}>Checkout</Btn>
 			</Stack>
-			<Dialog
+			<TxDialog
 				open={!!pending}
 				title="Remove item?"
 				onClose={() => setPending(null)}
@@ -76,8 +85,12 @@ export function CartPage() {
 					<Stack row gap={8}>
 						<Btn
 							onClick={() => {
-								cart.setQty(pending.id, 0, pending.giftWrap);
+								setCartQty(pending.id, 0, pending.giftWrap);
 								setPending(null);
+								snackbar.show({
+									children: 'Removed from cart',
+									autoHideMs: 2500
+								});
 							}}
 						>
 							Remove
@@ -87,7 +100,7 @@ export function CartPage() {
 						</Btn>
 					</Stack>
 				</Stack>
-			</Dialog>
+			</TxDialog>
 		</Stack>
 	);
 }
